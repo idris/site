@@ -73,7 +73,6 @@ convox builds export $BUILD_ID > /tmp/b.tgz
 # Import the Build Artifact from Staging and Release on Production
 
 convox switch production
-BUILD_ID=$(convox builds import /tmp/b.tgz)
-RELEASE_ID=$(convox releases | grep $BUILD_ID | cut -d" " -f1)
+RELEASE_ID=$(convox builds import /tmp/b.tgz --id)
 convox releases promote $RELEASE_ID --wait
 ```
