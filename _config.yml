@@ -28,6 +28,10 @@ collections:
     title: Monitoring
     output: true
     permalink: /docs/:name/
+  workflows:
+    title: Workflows
+    output: true
+    permalink: /docs/:name/
   services:
     title: Services
     output: true

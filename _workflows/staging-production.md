@@ -1,13 +1,29 @@
 ---
-title: "Custom Workflows"
-order: 1100
+title: "Staging and Production"
 ---
 
-The Build, Release and Run APIs enable you to build custom workflows. Here we demonstrate how to use Convox as a private Continuous Integration system.
+A Convox best practice is to have two Racks, one for staging and one for production. 
 
-## Two Racks
+On the isolated staging rack you will:
 
-First we set up Staging and Production Racks with the same app on both. Staging will perform all the builds and tests and Production will only be updated with verified builds.
+* Deploy small-scale versions apps for review or QA
+* Perform new builds
+* Run automated tests
+* Test migrations
+* Apply `convox rack update` frequently
+
+On the isolated production rack you will:
+
+* Scale apps for production traffic
+* Import verified builds
+* Run verified migrations
+* Apply `convox rack update` during safe maintenance windows
+
+Workflows make it easy to deliver apps from staging to production.
+
+## Staging and Production Racks
+
+First we set up Staging and Production Racks with the same app name on both.
 
 ```
 $ convox install --stack-name staging
@@ -28,9 +44,10 @@ Now we design a simple CI workflow:
 
 1. Build and Release on Staging
 2. Pass automated tests on Staging
-3. Export the verified Build artifact from Staging
-4. Import the verified Build artifact to Production
-5. Release the verified Build into Production
+3. Pass automated migrations on Staging
+4. Export the verified Build artifact from Staging
+5. Import the verified Build artifact to Production
+6. Release the verified Build into Production
 
 ## Script
 
@@ -47,9 +64,10 @@ BUILD_ID=$(convox build --id)
 RELEASE_ID=$(convox releases | grep $BUILD_ID | cut -d" " -f1)
 convox releases promote $RELEASE_ID --wait
 
-# Run tests on Staging and export a Build Artifact if they pass
+# Run tests and migrations on Staging and export a Build Artifact if they pass
 
-convox run web make test --release $RELEASE_ID
+convox run web rake test --release $RELEASE_ID
+convox run web rake db:migrate --release $RELEASE_ID
 convox builds export $BUILD_ID > /tmp/b.tgz
 
 # Import the Build Artifact from Staging and Release on Production
