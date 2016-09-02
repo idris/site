@@ -39,10 +39,9 @@ BUILD_ID=$(convox build --id --app myapp-staging)
 RELEASE_ID=$(convox releases --app myapp-staging | grep $BUILD_ID | cut -d" " -f1)
 convox releases promote $RELEASE_ID --wait --app myapp-staging
 
-# Run tests on the staging app and export a Build Artifact if they pass
+# Run tests on the staging to verify they pass
 
 convox run web make test --release $RELEASE_ID --app myapp-staging
-convox builds export $BUILD_ID --app myapp-staging > /tmp/b.tgz
 
 # Copy the Build from Staging and Release on Production
 
