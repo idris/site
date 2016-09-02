@@ -1,8 +1,9 @@
 ---
 title: "Custom"
+order: 20
 ---
 
-The Build, Release and Run APIs enable you to build custom workflows. 
+The Build, Release and Run APIs enable you to build custom workflows.
 
 Here we demonstrate how to use two separate apps, a staging app for testing and review and a production app for releasing only verified builds.
 
