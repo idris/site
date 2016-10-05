@@ -12,6 +12,10 @@ collections:
     title: Introduction
     output: true
     permalink: /docs/:name/
+  guide:
+    title: Convox Guide
+    output: true
+    permalink: /guide/:name/
   development:
     title: Development
     output: true
@@ -63,11 +67,11 @@ defaults:
     values:
       layout: cases
   - scope:
-      path: pricing
-    values:
-      layout: pricing
-  - scope:
       path: docs
+    values:
+      layout: docs
+  - scope:
+      path: guide
     values:
       layout: docs
   - scope:
@@ -82,6 +86,10 @@ defaults:
       type: posts
     values:
       layout: post
+  - scope:
+      path: pricing
+    values:
+      layout: pricing
   - scope:
       path: team
     values:
