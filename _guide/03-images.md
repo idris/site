@@ -1,6 +1,6 @@
 ---
 title: "Images"
-subtitle: "Predictable and Portable"
+permalink: guide/images
 ---
 
 [Previous: Introduction]() [Next: Processes]()

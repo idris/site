@@ -73,7 +73,7 @@ defaults:
   - scope:
       path: guide
     values:
-      layout: docs
+      layout: guide
   - scope:
       path: jobs
     values:
